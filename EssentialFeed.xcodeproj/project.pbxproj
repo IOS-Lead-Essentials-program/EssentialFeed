@@ -12,6 +12,7 @@
 		63D25ACF2A98C6BD0046CCEA /* EssentialFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D25ACE2A98C6BD0046CCEA /* EssentialFeedTests.swift */; };
 		63D25AD02A98C6BD0046CCEA /* EssentialFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D25AC22A98C6BD0046CCEA /* EssentialFeed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63D25ADA2A98C6EA0046CCEA /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D25AD92A98C6EA0046CCEA /* FeedItem.swift */; };
+		63D25ADC2A98C7DB0046CCEA /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D25ADB2A98C7DB0046CCEA /* FeedLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		63D25AC92A98C6BD0046CCEA /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D25ACE2A98C6BD0046CCEA /* EssentialFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedTests.swift; sourceTree = "<group>"; };
 		63D25AD92A98C6EA0046CCEA /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		63D25ADB2A98C7DB0046CCEA /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				63D25AC22A98C6BD0046CCEA /* EssentialFeed.h */,
 				63D25AC32A98C6BD0046CCEA /* EssentialFeed.docc */,
 				63D25AD92A98C6EA0046CCEA /* FeedItem.swift */,
+				63D25ADB2A98C7DB0046CCEA /* FeedLoader.swift */,
 			);
 			path = EssentialFeed;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63D25ADC2A98C7DB0046CCEA /* FeedLoader.swift in Sources */,
 				63D25ADA2A98C6EA0046CCEA /* FeedItem.swift in Sources */,
 				63D25AC42A98C6BD0046CCEA /* EssentialFeed.docc in Sources */,
 			);
