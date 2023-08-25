@@ -6,48 +6,57 @@
 //
 
 import XCTest
-@testable import EssentialFeed
-
-class RemoteFeedLoader {
-    func load() {
-        HTTPClient.shared.get(from: URL(string: "https://a-url.com")!)
-    }
-}
-
-class HTTPClient {
-    static var shared = HTTPClient()
-    
-    func get(from url: URL) {}
-}
-
-class HTTPClientSpy: HTTPClient {
-    var requestedURL: URL?
-    
-    override func get(from url: URL) {
-        requestedURL = url
-    }
-}
+import EssentialFeed
 
 final class RemoteFeedLoaderTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
-        let client = HTTPClientSpy()
-        HTTPClient.shared = client
-        _ = RemoteFeedLoader()
+        let (_, client) = makeSUT()
         
-        XCTAssertNil(client.requestedURL)
+        XCTAssertTrue(client.requestedURLs.isEmpty)
     }
     
-    func test_load_requestDataFromURL() {
-        let client = HTTPClientSpy()
-        HTTPClient.shared = client
-        /* To set the url you could you do it throug Dependency injection or Singleton
+    func test_load_requestsDataFromURL() {
+        /* To set the url you could you do it through Dependency injection or Singleton
          Dependency injection: constructor, property or method injection.
-         But there's no need for a singleton, cause there could be more than one API client.
+         But there's no need for a singleton, cause it creates tight coupling,
+         and there could be more than one API client.
          */
-        let sut = RemoteFeedLoader()
+        let url = URL(string: "https://a-given-url.com")!
+        let (sut, client) = makeSUT(url: url)
         sut.load()
          
-        XCTAssertNotNil(client.requestedURL)
+        XCTAssertEqual(client.requestedURLs, [url])
+    }
+    
+    func test_load_requestsDataFromURLTwice() {
+        /* To set the url you could you do it through Dependency injection or Singleton
+         Dependency injection: constructor, property or method injection.
+         But there's no need for a singleton, cause it creates tight coupling,
+         and there could be more than one API client.
+         */
+        let url = URL(string: "https://a-given-url.com")!
+        let (sut, client) = makeSUT(url: url)
+        sut.load()
+        sut.load()
+         
+        XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
+    // MARK: Helpers
+    
+    private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemoteFeedLoader(url: url, client: client)
+        return (sut, client)
+    }
+    
+    private class HTTPClientSpy: HTTPClient {
+
+        var requestedURLs = [URL]()
+        
+        func get(from url: URL) {
+            requestedURLs.append(url)
+        }
     }
 }
