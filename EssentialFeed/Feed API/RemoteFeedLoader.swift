@@ -11,7 +11,7 @@ import Foundation
  (Error?,HTTPURLResponse?) Not like the code before where both could be nil
  or have value */
 public enum HTTPClientResult {
-    case success(HTTPURLResponse)
+    case success(Data, HTTPURLResponse)
     case failure(Error)
 }
 
