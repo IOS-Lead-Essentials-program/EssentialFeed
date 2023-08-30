@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* The enum helps have one of the options.
+ (Error?,HTTPURLResponse?) Not like the code before where both could be nil
+ or have value */
 public enum HTTPClientResult {
     case success(HTTPURLResponse)
     case failure(Error)
