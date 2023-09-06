@@ -160,13 +160,33 @@ final class RemoteFeedLoaderTests: XCTestCase {
     
     /* The file and line, are for when it fails, show the exact line where
      it failed.*/
-    private func expect(_ sut: RemoteFeedLoader, toCompleteWithError result: RemoteFeedLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: RemoteFeedLoader, toCompleteWithError expectedResult: RemoteFeedLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         var capturedResults = [RemoteFeedLoader.Result]()
-        sut.load { capturedResults.append($0) }
+        
+        let exp = expectation(description: "Wait for load completion")
+        
+        /* This avoids adding the generic types to production code, only for testing purposes.
+         The changes to generic types should only be changed because
+         of the requirments, not due to tests.
+         */
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedResult), .success(expectedResult)):
+                XCTAssertEqual(receivedResult, expectedResult, file: file, line: line)
+                
+            case let (.failure(receivedResult), .failure(expectedResult)):
+                XCTAssertEqual(receivedResult, expectedResult, file: file, line: line)
+                
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead.", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
         
         action()
         
-        XCTAssertEqual(capturedResults, [result], file: file, line: line)
+        wait(for: [exp], timeout: 1.0)
     }
     
     private class HTTPClientSpy: HTTPClient {
