@@ -165,7 +165,6 @@ final class RemoteFeedLoaderTests: XCTestCase {
     /* The file and line, are for when it fails, show the exact line where
      it failed.*/
     private func expect(_ sut: RemoteFeedLoader, toCompleteWithError expectedResult: RemoteFeedLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        var capturedResults = [RemoteFeedLoader.Result]()
         
         let exp = expectation(description: "Wait for load completion")
         
