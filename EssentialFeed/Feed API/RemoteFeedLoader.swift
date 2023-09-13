@@ -7,19 +7,7 @@
 
 import Foundation
 
-/* The enum helps have one of the options.
- (Error?,HTTPURLResponse?) Not like the code before where both could be nil
- or have value */
-public enum HTTPClientResult {
-    case success(HTTPURLResponse)
-    case failure(Error)
-}
-
-public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
-}
-
-public final class RemoteFeedLoader {
+public final class RemoteFeedLoader: FeedLoader {
     private let url: URL
     private let client: HTTPClient
     
@@ -27,6 +15,8 @@ public final class RemoteFeedLoader {
         case connectivity
         case invalidData
     }
+    
+    public typealias Result = LoadFeedResult
     
     public init(url: URL , client: HTTPClient) {
         self.url = url
@@ -36,14 +26,18 @@ public final class RemoteFeedLoader {
     /* Void = { _ in } = it has a default closure,
     to not break the other tests */
     public func load(completion: @escaping
-                     (Error) -> Void) {
-        client.get(from: url) { result in
+                     (Result) -> Void) {
+        client.get(from: url) { [weak self] result in
+            guard self != nil else { return }
+            
             switch result {
-            case .success:
-                completion(.invalidData)
+            case let .success(data, response):
+                // self --> could cause retained cycles.
+                completion(FeedItemsMapper.map(data, from: response))
             case .failure:
-                completion(.connectivity)
+                completion(.failure(Error.connectivity))
             }
         }
     }
 }
+
