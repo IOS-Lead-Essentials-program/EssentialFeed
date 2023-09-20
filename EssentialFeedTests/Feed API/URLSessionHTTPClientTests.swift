@@ -75,8 +75,10 @@ class URLSessionHTTPClientTests: XCTestCase {
     // MARK: - Helpers
     
     // Factory method - This is to make sure if we change API's for ex.- On dependency changes we don't break tests.
-    private func makeSUT() -> URLSessionHTTPClient {
-        return URLSessionHTTPClient()
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> URLSessionHTTPClient {
+         let sut = URLSessionHTTPClient()
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return sut
     }
     
     private class URLProtocolStub: URLProtocol {
