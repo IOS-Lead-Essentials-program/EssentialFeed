@@ -8,6 +8,10 @@
 import XCTest
 import EssentialFeed
 
+/* Recomendation to run end-to-end tests before merging
+ to main with a continuos integration pipeline for example.
+ Recommendation to not run that often due to slow run times.
+ */
 final class EssentialFeedAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
