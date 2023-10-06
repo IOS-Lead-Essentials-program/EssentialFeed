@@ -12,7 +12,7 @@ import EssentialFeed
  to main with a continuos integration pipeline for example.
  Recommendation to not run that often due to slow run times.
  */
-final class EssentialFeedAPIEndToEndTests: XCTestCase {
+class EssentialFeedAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
@@ -29,15 +29,15 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
             
         case let .failure(error)?:
             XCTFail("Expected successful feed result, got \(error) instead")
+            
         default:
             XCTFail("Expected successful feed result, got no result instead")
         }
-        
     }
     
     // MARK: - Helpers
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> LoadFeedResult? {
+    private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> LoadFeedResult? {
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient()
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
@@ -51,9 +51,8 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
             receivedResult = result
             exp.fulfill()
         }
+        wait(for: [exp], timeout: 15.0)
         
-        // Time occilated between 2 - 5 sec.
-        wait(for: [exp], timeout: 5.0)
         return receivedResult
     }
     
@@ -107,6 +106,4 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
     private func imageURL(at index: Int) -> URL {
         return URL(string: "https://url-\(index+1).com")!
     }
-
 }
-
