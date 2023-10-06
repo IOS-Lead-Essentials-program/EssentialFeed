@@ -51,7 +51,7 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
             receivedResult = result
             exp.fulfill()
         }
-        // Normally takes up to 5 sec. but it was timing out.
+        // Normally takes up to 2-5 sec. but it was timing out.
         wait(for: [exp], timeout: 15.0)
         
         return receivedResult
