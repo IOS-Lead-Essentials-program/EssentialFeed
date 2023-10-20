@@ -4,7 +4,8 @@
       "id" : "8894E2D4-8AC8-4292-A571-FD5673158F63",
       "name" : "Test Scheme Action",
       "options" : {
-        "testExecutionOrdering" : "random"
+        "testExecutionOrdering" : "random",
+        "threadSanitizerEnabled" : true
       }
     }
   ],
@@ -17,7 +18,14 @@
           "name" : "EssentialFeed"
         }
       ]
-    }
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:EssentialFeed.xcodeproj",
+      "identifier" : "63D25ABE2A98C6BD0046CCEA",
+      "name" : "EssentialFeed"
+    },
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true
   },
   "testTargets" : [
     {
