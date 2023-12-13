@@ -24,8 +24,7 @@
       "identifier" : "63D25ABE2A98C6BD0046CCEA",
       "name" : "EssentialFeed"
     },
-    "testExecutionOrdering" : "random",
-    "threadSanitizerEnabled" : true
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
