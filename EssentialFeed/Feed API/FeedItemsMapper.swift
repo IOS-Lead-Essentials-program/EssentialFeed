@@ -7,13 +7,6 @@
 
 import Foundation
 
-internal struct RemoteFeedItem: Decodable {
-    internal let id: UUID
-    internal let description: String?
-    internal let location: String?
-    internal let image: URL
-}
-
 // internal = only accesible to its own module. No other module has access to it.
 internal final class FeedItemsMapper {
     private struct Root: Decodable {
