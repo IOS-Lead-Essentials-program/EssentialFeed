@@ -10,7 +10,7 @@ import Foundation
 /* Data Transfer Objects (DTO's). It looks like duplicate, but we allow them (LocalFeedItem vs. FeedItem) to change at their own pace.
  This removes strong coupling between modules.
  */
-public struct LocalFeedImage: Equatable, Codable {
+public struct LocalFeedImage: Equatable {
     public let id: UUID
     public let description: String?
     public let location: String?
